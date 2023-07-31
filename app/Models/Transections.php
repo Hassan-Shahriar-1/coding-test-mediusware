@@ -24,7 +24,7 @@ class Transections extends Model
      * @param $transectionType
      * @return object
      */
-    public static function getTransectionListWithPagination(string $transectionType, int $userId = null): object
+    public static function allTransectionsData(string $transectionType, int $userId = null): object
     {
         $transections = self::query();
 
@@ -38,7 +38,7 @@ class Transections extends Model
             $transections->where('user_id', $userId);
         }
 
-        $transections->paginate(20);
+        $transections = $transections->get();
 
         return $transections;
     }

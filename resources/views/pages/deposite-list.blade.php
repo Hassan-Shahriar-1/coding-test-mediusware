@@ -18,7 +18,8 @@
 </div>
 
 <button class="btn btn-success" onclick="openModal()">Add Deposite</button>
-<table id="example" class="table table-striped table-bordered">
+<br>
+<table id="deposite-table" class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Transection ID</th>
@@ -33,7 +34,7 @@
             <tr>
                 <th>{{$deposite->id}} </th>
                 <th>{{$deposite->fee}} </th>
-                <th>{{$deposite->ammount}} </th>
+                <th>{{$deposite->amount}} </th>
                 <th>{{$deposite->date}} </th>
             </tr>
             @endforeach

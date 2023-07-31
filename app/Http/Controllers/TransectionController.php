@@ -24,7 +24,7 @@ class TransectionController extends Controller
     public function getAllTransectionList(): object
     {
         try {
-            return $this->transection::getTransectionListWithPagination('all', auth()->id());
+            return $this->transection::allTransectionsData('all', auth()->id());
         } catch (Exception $e) {
             abort(500, 'Something went wrong. Please try again later');
         }
@@ -35,7 +35,8 @@ class TransectionController extends Controller
      */
     public function depositeList()
     {
-        $depositeList = $this->transection::getTransectionListWithPagination('deposite', auth()->id());
+        $depositeList = $this->transection::allTransectionsData('deposite', auth()->id());
+
         return view('pages.deposite-list', compact('depositeList'));
     }
 
