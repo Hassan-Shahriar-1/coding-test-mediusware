@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
+use App\Services\RegistrationService;
+use Exception;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -20,5 +23,20 @@ class AuthController extends Controller
     public function loginPage()
     {
         return view('auth.login');
+    }
+
+    /**
+     * register a user
+     * @param RegistrationRequest $request
+     */
+    public function registerUser(RegistrationRequest $request)
+    {
+        $requestData = $request->validated();
+        try {
+            $user = RegistrationService::createUser($requestData);
+            return redirect('/login');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'someting went wrong']);
+        }
     }
 }
