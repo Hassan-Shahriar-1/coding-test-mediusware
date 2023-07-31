@@ -22,4 +22,11 @@ Route::get('/registration', [AuthController::class, 'registration'])->name('regi
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registration');
 
 //login routes
-Route::get('login', [AuthController::class, 'loginPage'])->name('login.page');
+Route::get('login-page', [AuthController::class, 'loginPage']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+//logged in user routes
+Route::group(['middleware' => 'auth'], function () {
+    //Route::get('/deposite-list');
+});
+Route::get('/deposite-list');

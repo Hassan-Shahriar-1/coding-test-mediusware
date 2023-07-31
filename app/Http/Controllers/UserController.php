@@ -11,7 +11,7 @@ class UserController extends Controller
         if (auth()->user()) {
             return redirect('dashboard');
         } else {
-            return redirect('/login');
+            return redirect('/login-page');
         }
     }
 }

@@ -3,8 +3,11 @@
 @section('content')
 
     <h2>Log In</h2>
+
     
-    <form method="POST" action="/login">
+    
+    <form method="post" action="{{route('login')}}">
+        
         @csrf
         <div class="form-group">
             <label for="email">Email:</label>
@@ -21,5 +24,16 @@
         </div>
 
     </form>
+    
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    
+@endif
 
     @endsection

@@ -18,7 +18,7 @@
                 </li>
             @else
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link" href="/login-page">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/registration">Register</a>

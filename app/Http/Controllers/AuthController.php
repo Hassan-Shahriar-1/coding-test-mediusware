@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Services\RegistrationService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -36,7 +38,29 @@ class AuthController extends Controller
             $user = RegistrationService::createUser($requestData);
             return redirect('/login');
         } catch (Exception $e) {
-            return back()->withErrors(['error' => 'someting went wrong']);
+            return redirect()->back()->with('error', 'something went Wrong');
+        }
+    }
+
+    /**
+     * login a user
+     * @param LoginRequest $request
+     */
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->validated();
+
+        try {
+            if (Auth::attempt($credentials)) {
+
+                return redirect()->intended('/deposite-list');
+            } else {
+
+                return redirect()->back()->with('error', 'Invalid credentials.');
+            }
+        } catch (Exception $e) {
+
+            return redirect()->back()->with('error', 'something went Wrong');
         }
     }
 }
