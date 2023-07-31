@@ -24,7 +24,7 @@ Route::get('/registration', [AuthController::class, 'registration'])->name('regi
 Route::post('/register', [AuthController::class, 'registerUser'])->name('registration');
 
 //login routes
-Route::get('login-page', [AuthController::class, 'loginPage']);
+Route::get('login', [AuthController::class, 'loginPage']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 //logged in user routes
