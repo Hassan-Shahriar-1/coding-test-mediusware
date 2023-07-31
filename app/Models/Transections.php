@@ -77,10 +77,14 @@ class Transections extends Model
 
     }
 
-    protected static function balanceAvailabilityChecker($ammount, $userID)
-    {
-    }
 
+    /**
+     * calculate fee rate for withrawal
+     * @param object $user
+     * @param float $amount
+     * @param $freewithdrawal
+     * @return float
+     */
     private static function calculateWithdrawRate(object $user, float $amount, bool $freeWithdrawal)
     {
 
@@ -92,6 +96,14 @@ class Transections extends Model
         // Calculate the withdrawal fee based on the account type 
         $withdrawalFeeRate = ($user->account_type === 'individual') ? 0.015 : 0.025;
 
+        // Decrease the withdrawal fee to 0.015% for Business accounts after a total withdrawal of 50K
+        if ($user->account_type === 'buisness') {
+            $totalWithdrawal = $withdrawDetails->total_transection_amount ?? 0;
+            if ($totalWithdrawal + $amount >= 50000) {
+                $withdrawalFeeRate = 0.015;
+            }
+        }
+
         // Check if the first 1K withdrawal per transaction is free for Individual accounts
         if ($user->account_type === 'individual' && $amount <= 1000 && $freeWithdrawal) {
             $withdrawalFee = 0.0;
@@ -101,31 +113,28 @@ class Transections extends Model
         }
 
         // Check if the first 5K withdrawal each month is free for Individual accounts
-        if ($user->account_type === 'user' && $amount <= 5000) {
+        if ($user->account_type === 'individual' && $amount <= 5000) {
             // Keep track of the monthly withdrawal total for Individual accounts
             $monthlyWithdrawalTotal = $withdrawDetails->total_transections_this_month ?? 0;
             if ($monthlyWithdrawalTotal + $amount <= 5000) {
                 $withdrawalFee = 0.0;
-                $monthlyWithdrawalTotal += $amount;
             } else {
                 $withdrawalFee = ($monthlyWithdrawalTotal + $amount - 5000) * $withdrawalFeeRate;
-                $monthlyWithdrawalTotal = 5000;
             }
         }
 
-        // Decrease the withdrawal fee to 0.015% for Business accounts after a total withdrawal of 50K
-        if ($user->account_type === 'buisness') {
-            $totalWithdrawal = $withdrawDetails->total_transection_amount ?? 0;
-            if ($totalWithdrawal + $amount >= 50000) {
-                $withdrawalFeeRate = 0.015;
-            }
-        }
+
 
         return $withdrawalFee;
     }
 
 
-    protected static function getUserWithdrawDetails(int $userId)
+    /**
+     * transection calcultions amount
+     * @param $userId
+     * @return object
+     */
+    protected static function getUserWithdrawDetails(int $userId): object
     {
         $count = DB::select(DB::raw('
                 select
@@ -133,6 +142,7 @@ class Transections extends Model
                     (select sum(amount) from transections WHERE MONTH(date) = MONTH(CURDATE()) and user_id = :userId and transection_type = "withdraw" ) AS total_transections_this_month
 
         '), ['userId' => $userId]);
+
         return $count[0];
     }
 }
