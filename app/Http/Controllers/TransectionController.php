@@ -27,4 +27,13 @@ class TransectionController extends Controller
             abort(500, 'Something went wrong. Please try again later');
         }
     }
+
+    /**
+     * get User Deposite List
+     */
+    public function depositeList()
+    {
+        $depositeList = $this->transection::getTransectionListWithPagination('deposite', auth()->id());
+        return view('pages.deposite-list', compact('depositeList'));
+    }
 }
