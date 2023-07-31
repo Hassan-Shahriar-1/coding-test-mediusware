@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DepositeRequest;
+use App\Http\Requests\WithdrawRequest;
 use Illuminate\Http\Request;
 use App\Models\Transections;
 use App\Services\TransectionService;
@@ -58,5 +59,15 @@ class TransectionController extends Controller
     {
         $withdrawList = $this->transection::allTransectionsData('withdraw', auth()->id());
         return view('pages.withdraw-list', compact('withdrawList'));
+    }
+
+    /**
+     * withdraw balance
+     * @param WithdrawRequest $request
+     */
+    public function withDrawBalance(WithdrawRequest $request)
+    {
+        $withdarawData = $request->validated();
+        $withdraw = Transections::withdrawAccountBalance();
     }
 }

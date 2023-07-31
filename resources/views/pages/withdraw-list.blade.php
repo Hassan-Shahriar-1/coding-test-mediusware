@@ -17,7 +17,7 @@
     <h5 class="text-center"> Deposite list</h5>
 </div>
 
-<button class="btn btn-success" onclick="openModal()">Add Deposite</button>
+<button class="btn btn-success" onclick="openModal()">Withdraw balance</button>
 <br>
 <table id="withdraw-table" class="table table-striped table-bordered">
         <thead>
