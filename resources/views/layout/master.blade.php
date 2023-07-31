@@ -4,7 +4,7 @@
 <head>
     <title>@yield('title')</title>
     <!-- Add CSS -->
-    <link rel="stylesheet" href="https://cdn.example.com/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <!-- Add fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 </head>
@@ -28,8 +28,9 @@
         <!-- Your footer content goes here -->
     </footer>
 
-    <script src="https://cdn.example.com/js/jquery.min.js"></script>
-    <script src="https://cdn.example.com/js/bootstrap.min.js"></script>
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/poper.js')}}"></script>
+    <script src="{{asset('js/bootstrap.js')}}"></script>
 
 </body>
 </html>

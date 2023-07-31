@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::get('/registration', [AuthController::class, 'registration'])->name('registration.page');
+Route::get('login', [AuthController::class, 'loginPage'])->name('login.page');
