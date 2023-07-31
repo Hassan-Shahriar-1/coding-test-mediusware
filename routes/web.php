@@ -33,4 +33,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [UserController::class, 'home'])->name('deposite.list');
     Route::get('/transection-list', [TransectionController::class, 'getAllTransectionList'])->name('transection.ajax-list');
     Route::get('deposite', [TransectionController::class, 'depositeList'])->name('deposite.list');
+    Route::post('/deposite', [TransectionController::class, 'storeDeposite'])->name('deposite');
 });

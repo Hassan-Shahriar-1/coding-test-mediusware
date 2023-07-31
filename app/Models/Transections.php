@@ -9,6 +9,8 @@ class Transections extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'transection_type',

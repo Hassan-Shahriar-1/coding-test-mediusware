@@ -2,10 +2,22 @@
 
 @section('content')
 
-
+@include('modals.add-deposite')
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    
+@endif
 <div>
     <h5 class="text-center"> Deposite list</h5>
 </div>
+
+<button class="btn btn-success" onclick="openModal()">Add Deposite</button>
 <table id="example" class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -32,8 +44,18 @@
 
 @section('script')
 <script>
+     var deposite_modal = $("#deposite-modal");
    $(document).ready(function() {
         $('#deposite-table').DataTable()
     });
+
+    function openModal(){
+     
+        $('#deposite-modal').show();
+    }
+
+    function closeModal(){
+        $('#deposite-modal').hide();
+    }
 </script>
 @endsection

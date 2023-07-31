@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->enum('transection_type', ['deposite', 'withdraw']);
-            $table->double('ammount');
-            $table->decimal('fee', 10, 2);
+            $table->double('amount');
+            $table->decimal('fee', 10, 2)->default(0.00);
             $table->dateTime('date');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

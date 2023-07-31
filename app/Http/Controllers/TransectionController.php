@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepositeRequest;
 use Illuminate\Http\Request;
 use App\Models\Transections;
+use App\Services\TransectionService;
 use Exception;
 
 class TransectionController extends Controller
@@ -35,5 +37,16 @@ class TransectionController extends Controller
     {
         $depositeList = $this->transection::getTransectionListWithPagination('deposite', auth()->id());
         return view('pages.deposite-list', compact('depositeList'));
+    }
+
+    /**
+     * store deposite data
+     * @param DepositeRequest $request
+     */
+    public function storeDeposite(DepositeRequest $request)
+    {
+        $requestData = $request->validated();
+        $deposite = TransectionService::storeDeposite($requestData);
+        return redirect()->route('deposite.list');
     }
 }
