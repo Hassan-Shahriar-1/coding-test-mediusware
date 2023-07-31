@@ -16,4 +16,28 @@ class Transections extends Model
         'fee',
         'date'
     ];
+
+    /**
+     * get transection list with pagination
+     * @param $transectionType
+     * @return object
+     */
+    public static function getTransectionListWithPagination(string $transectionType, int $userId = null): object
+    {
+        $transections = self::query();
+
+        //getting transections by type
+        if ($transectionType != 'all') {
+            $transections->where('transection_type', $transectionType);
+        }
+
+        //gettting user data
+        if ($userId) {
+            $transections->where('user_id', $userId);
+        }
+
+        $transections->paginate(20);
+
+        return $transections;
+    }
 }

@@ -29,8 +29,11 @@
     </footer>
 
     <script src="{{asset('js/jquery.js')}}"></script>
+   
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="{{asset('js/poper.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
+    @yield('script')
 
 </body>
 </html>

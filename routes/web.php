@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepositeController;
+use App\Http\Controllers\TransectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'home'])->name('home');
+
 
 //registration routes
 Route::get('/registration', [AuthController::class, 'registration'])->name('registration.page');
@@ -27,6 +29,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 //logged in user routes
 Route::group(['middleware' => 'auth'], function () {
-    //Route::get('/deposite-list');
+    //deposite part
+    Route::get('/', [UserController::class, 'home'])->name('deposite.list');
+    Route::get('/transection-list', [TransectionController::class, 'getAllTransectionList'])->name('transection.ajax-list');
 });
-Route::get('/deposite-list');
