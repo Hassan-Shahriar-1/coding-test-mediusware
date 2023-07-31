@@ -10,11 +10,11 @@
         </button>
       </div>
       <div class="modal-body">
-         <form action="/deposite" method="POST">
+         <form action="/withdraw" method="POST">
             @csrf
          
             <div class="form-group sponsor_type_new">
-                    <label>Deposite Amount <span style="color:red;">*</span></label>
+                    <label>Withdraw Amount <span style="color:red;">*</span></label>
                     <input type="text" name="amount"  class="form-control">
             </div>
             

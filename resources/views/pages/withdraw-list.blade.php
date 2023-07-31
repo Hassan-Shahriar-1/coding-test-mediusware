@@ -13,8 +13,17 @@
     </div>
     
 @endif
+
+@if(session('message'))
+    <div class="alert ">
+        <ul>
+            <li>{{ session('message') }}</li>
+        </ul>
+    </div>
+    
+@endif
 <div>
-    <h5 class="text-center"> Deposite list</h5>
+    <h5 class="text-center"> Withdaraw list</h5>
 </div>
 
 <button class="btn btn-success" onclick="openModal()">Withdraw balance</button>

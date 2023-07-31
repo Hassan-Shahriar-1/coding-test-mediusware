@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Transections;
 use App\Services\TransectionService;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class TransectionController extends Controller
 {
@@ -68,6 +69,16 @@ class TransectionController extends Controller
     public function withDrawBalance(WithdrawRequest $request)
     {
         $withdarawData = $request->validated();
-        $withdraw = Transections::withdrawAccountBalance();
+        DB::beginTransaction();
+        try {
+            $withdrawMessage = TransectionService::withdrawAccountBalance($withdarawData);
+            DB::commit();
+            return back()->with('message', $withdrawMessage);
+        } catch (Exception $e) {
+
+            DB::rollBack();
+
+            abort(500, 'someting went wrong');
+        }
     }
 }

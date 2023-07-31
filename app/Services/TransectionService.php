@@ -66,6 +66,15 @@ class TransectionService
         $newBalance = $user->balance - ($withdrawAmount + $withdrawalFee);
 
         if ($newBalance > 0) {
+            //insert withdrawtransectionData
+            $requestData['transection_type'] = 'withdraw';
+            $requestData['date'] = date('Y-m-d H:i:s');
+            $requestData['user_id'] = $user->id;
+            $requestData['fee'] = $withdrawalFee;
+            Transections::create($requestData);
+
+            //updating profile balance
+            self::updateProfileBalance($user->id, $newBalance);
 
             return "Withdrawal successful. Withdrawn: $withdrawAmount, Fee: $withdrawalFee, New Balance: $newBalance";
         } else {
@@ -134,10 +143,10 @@ class TransectionService
     {
         $count = DB::select(DB::raw('
                 select
-                    (select sum(amount) from transections WHERE transection_type = "withdraw" and user_id = :userId) as total_transection_amount,
-                    (select sum(amount) from transections WHERE MONTH(date) = MONTH(CURDATE()) and user_id = :userId and transection_type = "withdraw" ) AS total_transections_this_month
+                    (select sum(amount) from transections WHERE transection_type = "withdraw" and user_id = "' . $userId . '") as total_transection_amount,
+                    (select sum(amount) from transections WHERE MONTH(date) = MONTH(CURDATE()) and user_id = "' . $userId . '" and transection_type = "withdraw" ) AS total_transections_this_month
 
-        '), ['userId' => $userId]);
+        '));
 
         return $count[0];
     }
