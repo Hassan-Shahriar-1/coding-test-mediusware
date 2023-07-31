@@ -29,9 +29,15 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 //logged in user routes
 Route::group(['middleware' => 'auth'], function () {
-    //deposite part
+
     Route::get('/', [UserController::class, 'home'])->name('deposite.list');
     Route::get('/transection-list', [TransectionController::class, 'getAllTransectionList'])->name('transection.ajax-list');
+
+    //deposite part
     Route::get('deposite', [TransectionController::class, 'depositeList'])->name('deposite.list');
     Route::post('/deposite', [TransectionController::class, 'storeDeposite'])->name('deposite');
+
+    //withdraw part
+    Route::get('withdraw', [TransectionController::class, 'withdrawList'])->name('withdraw.list');
+    Route::post('withdraw', [TransectionController::class, 'withDrawBalance'])->name('withdraw');
 });

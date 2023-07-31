@@ -50,4 +50,13 @@ class TransectionController extends Controller
         $deposite = TransectionService::storeDeposite($requestData);
         return redirect()->route('deposite.list');
     }
+
+    /**
+     * get withdraw list of users
+     */
+    public function withdrawList()
+    {
+        $withdrawList = $this->transection::allTransectionsData('withdraw', auth()->id());
+        return view('pages.withdraw-list', compact('withdrawList'));
+    }
 }
