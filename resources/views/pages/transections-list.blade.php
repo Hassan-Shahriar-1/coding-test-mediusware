@@ -21,14 +21,22 @@
                 <th>Transection ID</th>
                 <th>Transection Type</th>
                 <th>Fee</th>
-                <th>Ammount</th>
+                <th>Amount</th>
                 <th>Date</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($depositeList as  $deposite)
+                
             <tr>
+                <td>{{$deposite->id}}</td>
+                <td>{{$deposite->transection_type}}</td>
+                <td>{{$deposite->fee}}</td>
+                <td>{{$deposite->amount}}</td>
+                <td>{{$deposite->date}}</td>
                 
             </tr>
+            @endforeach
         </tbody>
     </table>
 
